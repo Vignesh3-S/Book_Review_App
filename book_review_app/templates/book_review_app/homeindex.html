@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+      <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <title>
+            {% block title %} 
+            {% endblock %}
+        </title>
+        {% load static %}
+        {% load django_bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_messages %}
+        {% bootstrap_javascript %}
+        <script src="https://kit.fontawesome.com/17eac9c9ad.js" crossorigin="anonymous"> </script>
+        <body>
+            <style>
+                #intro{
+                  background-image: url('{% static "book_review_app/images/homebg.jpg" %}');
+                }
+                  @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+                );
+                  
+                  .test-text{
+                    font-family:"Lato",sans-serif;
+                    font-weight: 400;
+                    font-style: italic;
+                  }
+              </style>
+                <div style="background-position: center; background-repeat: no-repeat;
+                background-size: cover;" id="intro">
+                  <div class="container-fluid" id="cont" style = "background-color:black; opacity: 0.7;">
+            {% block content %}
+            {% endblock %}
+            <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+            <script>
+              AOS.init();
+            </script>
+        </body>
+    </head>
+</html>

@@ -1,0 +1,52 @@
+{% extends 'book_review_app/index.html' %}
+{% block title %} pas api crop recommend form {% endblock %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_messages %}
+{% bootstrap_javascript %}
+{% block content %}
+{% load rest_framework %}
+<section>
+    <div class="container animate__animated animate__zoomIn" style="--animate-duration: 1.5s;">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col">
+          <div class="card card-registration" style="border:1.5px solid; border-color:black;box-shadow: 1px 1px 10px 1px rgb(218, 212, 212);">
+            <div class="row g-0">
+              <div class="col-xl">
+                <div class="card-body p-md-5">
+                  <form method="post">
+                    {% csrf_token %}
+                    <h3 class="mb-5 text-center animate__animated animate__lightSpeedInLeft animate__delay-1s">Crop Recommend Form</h3>
+                    <div class="row justify-content-center">
+                      <div class="col-md-10 mb-4">
+                        <div class="form-outline animate__animated animate__lightSpeedInLeft animate__delay-1s">
+                           <input type="number" min="1.0" step="any" placeholder="Enter Nitrogen value" required class="form-control" name="nitrogen"> <br>
+                           <input type="number" min="1.0" step="any" placeholder="Enter Phosphorus value" required class="form-control" name="phosphorus"> <br>
+                           <input type="number" min="1.0" step="any" placeholder="Enter Potassium value" required class="form-control" name="potassium"> <br>
+                           <input type="number" min="1.0" step="any" placeholder="Enter Potassium value" required class="form-control" name="potassium"> <br>
+                           <input type="number" min="1.0" step="any" placeholder="Enter Temperature value" required class="form-control" name="temperature"> <br>
+                           <input type="number" min="1.0" step="any" placeholder="Enter PH value" required class="form-control" name="ph"> <br>
+                           <input type="number" min="1.0" step="any" placeholder="Enter Humidity value" required class="form-control" name="humidity"> <br>
+                           <input type="number" min="1.0" step="any" placeholder="Enter Rainfall value" required class="form-control" name="rainfall"> <br>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-grid gap-2 col-lg-8 mx-auto animate__animated animate__lightSpeedInLeft animate__delay-1s">
+                      <button class="btn btn-success" type="order">Recommend Crop</button>
+                      <button class="btn btn-secondary" type="reset">Reset Values</button>
+                    </div>
+                  </form> 
+                </div> <br><br>
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 
+{% endblock %}
+
+
+          

@@ -1,0 +1,39 @@
+{% extends 'book_review_app/index.html' %}
+{% block title %}BRS play review{% endblock %}
+{% load static %}
+{% static 'css/play.css' %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_messages %}
+{% bootstrap_javascript %}
+{% block content %}
+<!-- Content -->
+<section class= 'h-100'>
+    <div class="text-center container">
+        <div class="row">
+            <div class="col-lg-4 mt-4">
+                <div class="card mt-4">
+                    <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light animate__animated animate__flipInY" style="--animate-duration: 1.5s;" 
+                    style="border:1.5px solid; border-color:black;box-shadow: 1px 1px 10px 1px rgb(218, 212, 212);"data-mdb-ripple-color="light">
+                        <img src="{{data.bookimg.url}}" class="w-100" style="height:500px;" 
+                        /> 
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 mt-5" style="background-color: #eee;">
+                <audio controls controlsList="nodownload" class="mt-3 animate__animated animate__fadeInDown" style="--animate-duration: 1.5s;">
+                    <source src = "{{data.bookfile.url}}" type = "audio/mpeg">
+                </audio> <br>
+                <form method="post" class="mt-3 animate__animated animate__fadeInRightBig" style="--animate-duration: 1.5s;">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <div class="d-grid mt-2 pt-3">
+                        <button  button class="btn btn-secondary  animate__animated animate__fadeInUpBig" style="--animate-duration: 1.5s;" type="submit">Submit</button> <br>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div><br><br><br><br><br>
+</section>
+  {% endblock %}

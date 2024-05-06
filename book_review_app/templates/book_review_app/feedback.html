@@ -1,0 +1,31 @@
+{% extends 'book_review_app/index.html' %}
+{% block title %} BRS review feedback {% endblock %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_messages %}
+{% bootstrap_javascript %}
+{% block content %}
+<section class="vh-100">
+    <div class="container animate__animated animate__zoomInRight" style="--animate-duration: 1.5s;">
+      <table class="table table-bordered" style="background-color: white; color:black">
+        <thead>
+          <tr>
+            <th scope="col">Date & Time</th>
+            <th scope="col">Name</th>
+            <th scope="col">feedback</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+            <tr class="animate__animated animate__fadeInTopRight animate__delay-1s">
+              <td style="text-decoration: none;color: black;" class="w-25">{{i.date}}</td>
+              <td style="text-decoration: none;color: black;" class="w-25">{{i.user.username}}</td>
+              <td style="text-decoration: none;color: black;" class="w-50">{{i.feedback}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>	
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'book_review_app/index.html' %}
+{% block title %}BRS user login{% endblock %}
+{% load socialaccount %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_messages %}
+{% bootstrap_javascript %}
+{% block content %}
+<section class="animate__animated animate__zoomInUp" style="--animate-duration: 1s;">
+    <div class="container py-5"> 
+      <div class="row d-flex align-items-center justify-content-center">
+        
+        <div class="col-md-10 col-lg-5 col-xl-8"
+        style="background-color:white;border-radius:5px">
+          <form method="post">
+            <input type="hidden" name= "next" value={{request.GET.next}}>
+            {% csrf_token %}
+            <h3 class="mb-4 mt-4 text-center">Sign into your account</h3>
+            <div class="form-outline mb-4">
+              {% bootstrap_form form %}
+            </div>
+            <div>
+              <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn btn-primary" type="submit">signin</button>
+              </div>
+              <p class="text-center fw-bold mx-3 mb-0 text-muted mt-3">or continue with</p>
+              <div class="mt-4 text-center">
+                <a href="{% provider_login_url 'google' %}" type="button" class="btn btn-link btn-floating mx-1">
+                  <i class="fa-brands fa-google fa-beat-fade"></i>
+                </a>
+  
+                <a href="{% provider_login_url 'github' %}" type="button" class="btn btn-link btn-floating mx-1">
+                  <i class="fa-brands fa-github fa-beat-fade"></i>
+                </a>
+              </div>
+              <p class="text-center fw-bold mx-3 mb-0 text-muted mt-3"><a href="{% url 'pwdchangeemail' %}" style="text-decoration: none;">Forgot Password?</a></p>
+              <p class="text-center fw-bold mx-3 mb-3 text-muted mt-3">Don't have an account?<a href="{% url 'signup' %}" style="text-decoration: none;"> Register here</a></p>
+            </div>
+          </form> 
+        </div>
+      </div>
+    </div> 
+  </section> <br>
+{% endblock %}

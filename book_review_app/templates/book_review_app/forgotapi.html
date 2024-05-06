@@ -1,0 +1,27 @@
+{% extends 'book_review_app/index.html' %}
+{% block title %} BRS forgot api {% endblock %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_messages %}
+{% bootstrap_javascript %}
+{% block content %}
+<section class="vh-100">
+  <div class="container-fluid">
+    <div class="continer">
+      <div class="row justify-content-center m-2" data-aos="flip-right"data-aos-duration="1500">
+        <div class="col-md-7 mt-5 mb-2" style="border:1.5px solid; border-color:rgb(0, 0, 0);box-shadow: 1px 1px 10px 1px rgb(133, 97, 97);
+        background-color: #292D3D;"><br>
+          <h3 data-aos="fade-left"data-aos-duration="1500" class="text-center text-white">Forgot API Token</h3>
+          <form method="post" class="mt-5 m-1" data-aos="fade-down"data-aos-duration="1500"> 
+            {% csrf_token %}
+            {{form.as_p}}
+            <div class="d-grid gap-2 col-lg-3 mt-5 mb-5 mx-auto">
+              <button class="btn btn-primary" type="order" data-aos="fade-up"data-aos-duration="1500">Show my Token</button> <br>
+            </div>
+          </form>
+        </div>
+      </div>  
+    </div>
+  </div>
+</section>
+{% endblock %}

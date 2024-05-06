@@ -1,0 +1,57 @@
+{% extends 'book_review_app/index.html' %}
+{% block title %}BRS user review collection{% endblock %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_messages %}
+{% bootstrap_javascript %}
+{% load cloudinary %}   
+{% block content %}
+<section class="mt-3" style="background-color: #eee;">
+    <div class="text-center container py-5">
+        <form class="d-flex animate__animated animate__flipInX"  style="--animate-duration: 2s;"  method="post">
+            {% csrf_token %}
+            <input class="form-control me-2" name="search" type="search" placeholder="Search Books Reviews by 'bookname' or 'bookauthor' or 'genere'" aria-label="Search">
+            <button class="btn btn-outline-secondary" style="background-color: wheat;color: black;" type="submit">Search</button>
+        </form> 
+        <h4 class="mt-4 mb-5 fw-normal animate__animated animate__lightSpeedInLeft test-text" style="--animate-duration:1s;"> Your Book Reviews</h4>
+        <div class="row">
+            {% for i in book %}
+            <div class="col-xl-6 col-xl-6 mb-4" data-aos="flip-right" data-aos-duration="1500">
+                <div class="card mb-3 w-100">
+                    <div class="row g-0">
+                      <div class="col-lg-4">
+                        <img src="{{i.bookimg.url}}" class="img-fluid rounded-start w-100 vh-75" style="height:300px;" alt="Book Image">
+                      </div>
+                      <div class="col-lg-8">
+                        <div class="card-body">
+                            <p class="text-start">Book Name  : {{i.bookname}}</p>
+                            <p class="text-start">Book author : {{i.bookauthor}}</p>
+                            <p class="text-start">Book genere : {{i.booktype}}</p>
+                            <audio controls controlsList="nodownload" class="mb-3 text-center">
+                                <source src = "{{i.bookfile.url}}" type = "audio/mpeg">
+                            </audio>  <br>
+                            <a href="{% url 'editbook' name=i.bookname author=i.bookauthor reviewer=i.user.email genere=i.booktype %}" type="button" class="btn btn-secondary btn-lg">Edit</a>
+                            <a href="{% url 'deletebook' name=i.bookname author=i.bookauthor reviewer=i.user.email genere=i.booktype %}" 
+                                onclick="return confirm('Are you sure you want to delete this?')" id="mybutton" type="button" class="btn btn-danger btn-lg">Delete</a>
+                            <a href="{% url 'viewfeedback' name=i.bookname author=i.bookauthor reviewer=i.user.email genere=i.booktype %}" type="button" class="btn btn-primary btn-lg">Feedback</a>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <center>
+                <span>{{book.number}}</span>
+                {%if book.has_previous %}
+                    <a href="?page={{book.previous_page_number}}" class="btn btn-primary btn-small">Previous</a>
+                {% endif %}
+               
+                {%if book.has_next %}
+                    <a href="?page={{book.next_page_number}}" class="btn btn-primary btn-small">Next</a>
+                {% endif %}
+            </center>
+        </div>
+    </div>
+</section> <br> <br>
+{% endblock %}

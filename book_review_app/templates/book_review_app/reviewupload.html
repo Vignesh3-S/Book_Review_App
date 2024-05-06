@@ -1,0 +1,39 @@
+{% extends 'book_review_app/index.html' %}
+{% block title %}BRS book upload{% endblock %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_messages %}
+{% bootstrap_javascript %}
+{% block content %}
+<section class="h-100">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card card-registration my-4" style="border:1.5px solid; border-color:black;box-shadow: 2px 2px 2px 2px rgb(63,24,24);">
+                    <div class="row g-0">
+                        <div class="col-xl mt-3">
+                            <div class="card-body p-md-5 text-black mt-5">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <h3 class="mb-5 text-uppercase text-center animate__animated animate__slideInRight test-text" style="--animate-duration: 1.5s;">Book Review Form</h3>
+                                    <div class="row">
+                                        <div class="col-md mb-4 animate__animated animate__lightSpeedInRight" style="--animate-duration: 1.5s;--animate-delay: 1s;">
+                                            <div class="form-outline">
+                                                {% bootstrap_form form %}
+                                            </div>
+                                        </div>
+                                    <div class="d-grid mt-2 pt-3 animate__animated animate__lightSpeedInLeft" style="--animate-duration: 1.5s;--animate-delay: 2s;">
+                                        <button class="btn btn-success" type="submit">Publish</button> <br>
+                                        <button class="btn btn-secondary" type="reset">Reset</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

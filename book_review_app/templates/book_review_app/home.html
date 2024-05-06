@@ -1,0 +1,170 @@
+{% extends 'book_review_app/homeindex.html' %}
+{% block title %} BRS home {% endblock %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_messages %}
+{% bootstrap_javascript %}
+<script src="https://kit.fontawesome.com/17eac9c9ad.js" crossorigin="anonymous"> </script>
+{% block content %}
+  <style>
+    .dropdown-menu li {
+      position: relative;
+      }
+      .dropdown-menu .dropdown-submenu {
+      display: none;
+      position: absolute;
+      left: 100%;
+      top: -7px;
+      }
+      .dropdown-menu .dropdown-submenu-left {
+      right: 100%;
+      left: auto;
+      }
+      .dropdown-menu > li:hover > .dropdown-submenu {
+      display: block;
+      }
+  </style>
+  <!--intro part-->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: rgb(2, 2, 1);">
+    <div class="container-fluid py-4">
+      <a href="{% url 'home' %}" style="text-decoration: none;--animate-duration: 900ms;" class="animate__animated animate__bounce"><h2 class="text-white text-start">BRS</h2></a> 
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-lg-center ms-5 btn-group drop-down" id="collapsibleNavbar" style="--animate-duration: 1.5s;">
+        <ul class="navbar-nav ms-5">
+          <li class="nav-item fa-fade ms-5">
+            <a class="nav-link button ms-5 text-white animate__animated animate__backInDown animate__delay-1s" href="#about" style="font-size: larger;
+            font-weight: bolder;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;" 
+            >About</a>
+          </li>
+          <li class="nav-item fa-fade ms-5">
+            <a class="nav-link button ms-5 text-white animate__animated animate__backInUp animate__delay-1s" href="#services" style="font-size: larger;
+            font-weight: bolder;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;" 
+            >Services</a>
+          </li>
+          <li class="nav-item fa-fade ms-5 me-5">
+            <a class="nav-link button ms-5 text-white animate__animated animate__backInDown animate__delay-1s" href="#contact" style="font-size: larger;
+            font-weight: bolder;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;" 
+            >Contact</a>
+          </li>
+          <form class="d-flex animate__animated animate__backInRight" method = "post" action="{% url 'collection' %}">
+            {% csrf_token %}
+            <input class="form-control me-1" name = "search" type="search" placeholder="Search Books Reviews" required aria-label="Search">
+            <button class="btn btn-outline-secondary" style="background-color: wheat;color: black;" type="submit">Search</button>
+          </form>
+          <div class="dropdown ms-5 mt-2 animate__animated animate__backInUp animate__delay-1s">
+            {% if userimg %}
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle ms-5" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="{{userimg.url}}" alt="mdo" width="32" height="32" class="rounded-circle">
+            </a>
+            {% else %}
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle ms-5" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="{% static 'book_review_app/images/profile.png' %}" alt="mdo" width="32" height="32" class="rounded-circle">
+            </a>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+              <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+              <li><a class="dropdown-item" href="{% url 'myreview' %}">my Reviews</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item" href="#">API</a>
+                  <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
+                    <li><a class="dropdown-item" href="{% url 'getapi' %}">get API key</a></li>
+                    <li><a class="dropdown-item" href="{% url 'forgotapi' %}">Forgot API key</a></li>
+                    <li><a class="dropdown-item" href="{% url 'deleteapi' %}">Delete API key</a></li>
+                  </ul>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item"href="{% url 'pasform' %}">Get Crop</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
+            </ul>
+            {% else %}
+            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+              <li><a class="dropdown-item" href="{% url 'signup' %}">Sign up</a></li>
+              <li><a class="dropdown-item" href="{% url 'signin' %}">Sign in</a></li>
+            </ul>
+          </div>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div> <br><br><br>
+    <h1 class ="text-center animate__animated animate__zoomIn animate__delay-1s" style="color: white; font-family:'Times New Roman', Times, serif;
+    font-size: 60px; margin-top:10%;--animate-duration: 1s;">Experience The Joy Of Listening <br> Book Reviews</h1>
+    <p class="text-white text-center  test-text animate__animated animate__backInUp animate__delay-1s" style="--animate-duration: 1s;font-size:20px;margin-bottom:8%">
+    Plunge yourself in enthralling stories and explore insightful knowledge <br> with our wide collections of audio book reviews.</p>
+  </div> <br>
+  <!--about-->
+  <div class="container" id="about">
+    <div class="row">
+      <div class="col-lg" style="color: white;">
+        <h1 data-aos="fade-down" data-aos-duration="900" style="margin-top:3%;font-family:Georgia, 'Times New Roman', Times, serif;">About App</h1>
+        <h2 style="font-family:Georgia, 'Times New Roman', Times, serif" data-aos="fade-top" data-aos-duration="900" >Book Review System</h2>
+        <p  data-aos="zoom-in-up" data-aos-duration="900" class="test-text" style="font-size:23px;margin-bottom:5%;">Listening to book reviews is unlike reading or listening to audio books... 
+          Some people are unaware of books that provide significant knowledge and valuable experience.  
+          This app enables book readers to express their feelings and opinions in books
+          and promotes new readers and listeners to read books or listen to audio books.
+        </p>
+      </div>
+    </div>
+  </div><br><br>
+  <!--services-->
+  <section class="py-5 py-xl-8" id="services">
+    <div class="container overflow-hidden">
+      <div class="row gy-4 gy-xl-0">
+        <div class="col-12 col-sm-6 col-xl-6" data-aos="flip-left" data-aos-duration="900">
+          <div class="card border-0 border-bottom border-primary shadow-sm">
+            <div class="card-body text-center p-4 p-xxl-5">
+              <a href="{% url 'collection' %}" style="text-decoration: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-file-music-fill" viewBox="0 0 16 16">
+                  <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm-.5 4.11v1.8l-2.5.5v5.09c0 .495-.301.883-.662 1.123C7.974 12.866 7.499 13 7 13c-.5 0-.974-.134-1.338-.377-.36-.24-.662-.628-.662-1.123s.301-.883.662-1.123C6.026 10.134 6.501 10 7 10c.356 0 .7.068 1 .196V4.41a1 1 0 0 1 .804-.98l1.5-.3a1 1 0 0 1 1.196.98z"/>
+                </svg> <br><br>
+                <h4 class="mb-4" style="color:black;">Listen to reviews</h4>
+                <p class="mb-4 text-secondary test-text">Tap to listen to your preferred review from our audio book reviews collection.</p>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-6" data-aos="flip-right" data-aos-duration="900">
+          <div class="card border-0 border-bottom border-primary shadow-sm">
+            <div class="card-body text-center p-4 p-xxl-5">
+              <a href="{% url 'bookupload' %}" style="text-decoration: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+                  <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                  <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                </svg> <br><br>
+                <h4 class="mb-4" style="color: black;">Upload Book Reviews</h4>
+                <p class="mb-4 text-secondary test-text">Tap to add your favourite audio reviews of books to the collection house.</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> <br><br>
+  <!--contact-->
+  <div class="container-fluid" id="contact">
+    <div class="row">
+      <div class="col-lg text-white" style="margin-top: 8%;margin-left:3%;">
+        <h1 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"data-aos="fade-top" data-aos-duration="900"><strong>Get</strong> In Touch</h1>
+        <h5 class="test-text" data-aos="fade-top" data-aos-duration="900">Please use the contact form to send us your questions. We are available to provide ideal answers 
+        to your questions.</h5>
+      </div>
+      <div class="col-lg" style="margin-top: 5%;margin-right: 2%;"data-aos="fade-down" data-aos-duration="900">
+        <form class="row g-3 mb-5" style="color: white;" method="post">
+          {% csrf_token %}
+          <div class="col-lg">
+           {% bootstrap_form form %}
+          <div class="col-12">
+            <button class="btn" style="background-color:wheat;color:black;" type="submit">Submit form</button>
+          </div>
+         </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

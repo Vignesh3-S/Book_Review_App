@@ -1,0 +1,56 @@
+{% extends 'book_review_app/index.html' %}
+{% block title %} BRS password set/change {% endblock %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_messages %}
+{% bootstrap_javascript %}
+{% block content %}
+<section class="h-100">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col">
+          <div class="card card-registration my-4" style="border:1.5px solid; border-color:black;box-shadow: 2px 2px 2px 2px rgb(63,24,24);">
+            <div class="row g-0">
+              
+              <div class="col-xl">
+                    <div class="card-body p-md-5">
+                      {% if key %}
+                        <form method="post" action="{% url 'mergesuccess' %}">
+                            {% csrf_token %}
+                            <h3 class="mb-5  text-center animate__animated animate__backInDown" style="--animate-duration: 1.5s;">Set password</h3>
+                                <div class="row">
+                                    <div class="col-md mb-4">
+                                        <div class="form-outline animate__animated animate__backInLeft" style="--animate-duration: 1.5s;">
+                                          <input type="hidden" name="email" value={{email}} readonly>
+                                            {% bootstrap_form form %}
+                                        </div>
+                                    </div>
+                            <div class="d-grid mt-2 pt-3 animate__animated animate__backInRight" style="--animate-duration: 1.5s;">
+                                <button type="submit" class="btn btn-success btn-lg ms-2">Set Password</button>
+                            </div>
+                        </form>
+                      {% else %}
+                        <form method="post">
+                          {% csrf_token %}
+                          <h3 class="mb-5  text-center animate__animated animate__backInDown" style="--animate-duration: 1.5s;">Change Account password</h3>
+                              <div class="row">
+                                  <div class="col-md mb-4">
+                                      <div class="form-outline animate__animated animate__backInLeft" style="--animate-duration: 1.5s;">
+                                          {% bootstrap_form form %}
+                                      </div>
+                                  </div>
+                          <div class="d-grid mt-2 pt-3 animate__animated animate__backInRight" style="--animate-duration: 1.5s;">
+                              <button type="submit" class="btn btn-success btn-lg ms-2">Change Password</button>
+                          </div>
+                        </form>
+                      {% endif %}
+                    </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

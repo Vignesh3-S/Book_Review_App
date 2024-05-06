@@ -1,0 +1,65 @@
+{% extends 'book_review_app/index.html' %}
+{% block title %} BRS user profile {% endblock title %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_messages %}
+{% bootstrap_javascript %}
+{% block content %}
+<section class="h-100">
+  <div class="container py-5 mt-5" >
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col col-lg-10 lg-0">
+        <div class="card" style="border:1.5px solid; border-color:#1C0D00;box-shadow: 1px 1px 10px 1px rgb(133, 97, 97);"
+        data-aos="zoom-in"data-aos-duration="1500">
+          <div class="row g-0">
+            <div class="col-md-4 text-center text-white" style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem; background-color:#0A1027;">
+              {% if img %}
+              <a href="{% url 'profileimagechange' %}"><img src="{{img.url}}" alt="{{usernamename}}" class="img-fluid my-5 rounded-circle" style="width: 50%;height:50%;"
+              data-aos="flip-left" data-aos-duration="1500"></a>
+              {% else %}
+              <a href="{% url 'profileimagechange' %}"><img src="{% static 'book_review_app/images/profile.png' %}" alt="{{usernamename}}" class="img-fluid my-5 rounded-circle" style="width: 50%;height:50%;"
+              data-aos="flip-left" data-aos-duration="1500"></a>
+              {% endif %}
+              <h5>{{user.username}}</h5>
+              <a href="{% url 'profileedit' %}" class="far fa-edit" style="margin-bottom: 30%;"></a>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body p-4">
+                <h6>Information</h6>
+                <hr class="mt-0 mb-4">
+                <div class="row pt-1">
+                  <div class="col-6 mb-3" data-aos="fade-right"data-aos-duration="1500">
+                    <h6>Email</h6>
+                    <p class="text-muted">{{user.email}}</p>
+                  </div>
+                  <div class="col-6 mb-3" data-aos="fade-left"data-aos-duration="1500">
+                    <h6>Mobile Number</h6>
+                    <p class="text-muted">{{user.mobilenumber}}</p>
+                  </div>
+                  <div class="col-6 mb-3" data-aos="fade-right"data-aos-duration="1500">
+                    <h6>Account Created</h6>
+                    <p class="text-muted">{{user.date_joined}}</p>
+                  </div>
+                  <div class="col-6 mb-3" data-aos="fade-left"data-aos-duration="1500">
+                    <h6>Account Modified</h6>
+                    <p class="text-muted">{{user.date_modified}}</p>
+                  </div>
+                  <div class="col-6 mb-3" data-aos="fade-right"data-aos-duration="1500">
+                    <h6>Last Login</h6>
+                    <p class="text-muted">{{user.last_login}}</p>
+                  </div>
+                  <div class="col-6" data-aos="fade-left"data-aos-duration="1500">
+                    <h6>Published Books</h6>
+                    <p class="text-muted">{{books}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <br><br><br><br>
+</section>
+{% endblock %}

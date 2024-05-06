@@ -1,0 +1,62 @@
+{% extends 'book_review_app/index.html' %}
+{% block title %}BRS review collection{% endblock %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_messages %}
+{% bootstrap_javascript %}
+{% block content %}
+<section style="background-color: #eee;">
+    <div class="text-center container py-5">
+        <h4 class="mt-4 mb-5 fw-normal animate__animated animate__lightSpeedInLeft test-text">Book Review Collections</h4>
+        <form class="d-flex animate__animated animate__lightSpeedInRight mb-3" method = "post">
+            {% csrf_token %}
+            <input class="form-control me-2" name ="search" type="search" placeholder="Search Books Reviews by 'bookname' or 'bookauthor' or 'genere'" aria-label="Search">
+            <button class="btn btn-outline-secondary" style="background-color: wheat;color: black;" type="submit">Search</button>
+        </form>
+        <div class="dropdown text-end mb-2">
+            <a class="btn btn-secondary  dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              Order By
+            </a>
+          
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-item" href="?page={{page_no.number}}&order=newest">Newest</a></li>
+              <li><a class="dropdown-item" href="?page={{page_no.number}}&order=oldest">Oldest</a></li>
+              <li><a class="dropdown-item" href="?page={{page_no.number}}&order=author">Author</a></li>
+              <li><a class="dropdown-item" href="?page={{page_no.number}}&order=review">Book Reviewer</a></li>
+              <li><a class="dropdown-item" href="?page={{page_no.number}}&order=genere">Book Genere</a></li>
+              <li><a class="dropdown-item" href="?page={{page_no.number}}&order=bookname">Book Name</a></li>
+            </ul>
+        </div>
+        <div class="row">
+            {% for i in book %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card" data-aos="zoom-in-up" data-aos-duration="500">
+                    <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-aos="zoom-in-down" data-aos-delay="300" data-aos-duration="1500" data-mdb-ripple-color="light">
+                        <img src="{{i.bookimg.url}}" class="w-75" style="height:175px;" />
+                        <a href="{% url 'audioplay' name=i.bookname author=i.bookauthor reviewer=i.user.email genere=i.booktype %}" style="text-decoration: none;">
+                            <div class="card-body text-dark">
+                                <h6 class="mb-3 fw-bolder">{{i.bookname}}</h6>
+                                <p>Book Author : {{i.bookauthor}}</p>
+                                <p>Book Reviewer : {{i.user}}</p>
+                                <p>Book Genere : {{i.booktype}}</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <center>
+                <span>{{page_no.number}}</span>
+                {%if page_no.has_previous %}
+                    <a href="?page={{page_no.previous_page_number}}" class="btn btn-primary btn-small">Previous</a>
+                {% endif %}
+               
+                {%if page_no.has_next %}
+                    <a href="?page={{page_no.next_page_number}}" class="btn btn-primary btn-small">Next</a>
+                {% endif %}
+            </center>
+        </div>
+    </div>
+</section>
+{% endblock %}

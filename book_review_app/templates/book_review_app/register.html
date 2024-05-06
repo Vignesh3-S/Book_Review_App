@@ -1,0 +1,57 @@
+{% extends 'book_review_app/index.html' %}
+{% block title %}BRS user signup{% endblock %}
+{% load static %}
+{% load socialaccount %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_messages %}
+{% bootstrap_javascript %}
+{% block content %}
+<section class="h-100">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col">
+        <div class="card card-registration my-4" style="border:1.5px solid; border-color:black;box-shadow: 2px 2px 2px 2px rgb(63,24,24);">
+          <div class="row g-0">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+              <div class="card-body p-md-5 text-black">
+                <form method="post">
+                  {% csrf_token %}
+                  <h3 class="mb-5 text-uppercase text-center animate__animated animate__backInRight test-text" style="--animate-duration: 1s;">Create an account</h3>
+                  <div class="row">
+                    <div class="col-md mb-4 animate__animated animate__backInLeft" style="--animate-duration: 1s;">
+                      <div class="form-outline">
+                        {% bootstrap_form form %}
+                      </div>
+                    </div>
+                    <div class="d-grid mt-2 pt-3 animate__animated animate__backInRight" style="--animate-duration: 1s;">
+                      <button class="btn btn-success" type="submit">Create Account</button> <br>
+                      <button class="btn btn-secondary" type="reset">Reset Form</button>
+                    </div>
+                    <div class="mt-4 text-center animate__animated animate__backInLeft" style="--animate-duration: 1s;">
+                      <p>or sign up with...</p>
+                      <a href="{% provider_login_url 'google' %}" type="button" class="btn btn-link btn-floating mx-1">
+                          <i class="fa-brands fa-google fa-beat-fade"></i>
+                      </a>
+    
+                      <a href="{% provider_login_url 'github' %}" type="button" class="btn btn-link btn-floating mx-1">
+                          <i class="fa-brands fa-github fa-beat-fade"></i>
+                      </a>
+                    </div>
+                    <div class="d-grid mt-2 pt-3 animate__animated animate__backInRight" style="--animate-duration: 1s;">
+                      <a href="{% url 'sendemailverify' %}" class="btn btn-primary" type="button"> Verify Account</a> <br>
+                      <a href="{% url 'signin' %}" class="btn btn-primary" type="button">Already Registered</a> <br>
+                      <a href="{% url 'merge' %}" class="btn btn-primary" type="button">Merge Your third party account with BRS</a>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
